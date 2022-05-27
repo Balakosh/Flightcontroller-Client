@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtIP = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.lblFrameCounter = new System.Windows.Forms.Label();
@@ -44,9 +45,14 @@
             this.lblRoll = new System.Windows.Forms.Label();
             this.lblYaw = new System.Windows.Forms.Label();
             this.lblPitch = new System.Windows.Forms.Label();
+            this.lblPropellerPercentage = new System.Windows.Forms.Label();
+            this.timerPropellerPercentage = new System.Windows.Forms.Timer(this.components);
+            this.btnSetPWM = new System.Windows.Forms.Button();
+            this.tbPWM = new System.Windows.Forms.TrackBar();
             this.gbAcc.SuspendLayout();
             this.gbOmg.SuspendLayout();
             this.gbRPY.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPWM)).BeginInit();
             this.SuspendLayout();
             // 
             // txtIP
@@ -212,11 +218,42 @@
             this.lblPitch.TabIndex = 4;
             this.lblPitch.Text = "Pitch = 0.00 °";
             // 
+            // lblPropellerPercentage
+            // 
+            this.lblPropellerPercentage.AutoSize = true;
+            this.lblPropellerPercentage.Location = new System.Drawing.Point(571, 349);
+            this.lblPropellerPercentage.Name = "lblPropellerPercentage";
+            this.lblPropellerPercentage.Size = new System.Drawing.Size(69, 15);
+            this.lblPropellerPercentage.TabIndex = 11;
+            this.lblPropellerPercentage.Text = "PWM = 0 %";
+            // 
+            // btnSetPWM
+            // 
+            this.btnSetPWM.Location = new System.Drawing.Point(518, 447);
+            this.btnSetPWM.Name = "btnSetPWM";
+            this.btnSetPWM.Size = new System.Drawing.Size(150, 23);
+            this.btnSetPWM.TabIndex = 12;
+            this.btnSetPWM.Text = "Set PWM";
+            this.btnSetPWM.UseVisualStyleBackColor = true;
+            this.btnSetPWM.Click += new System.EventHandler(this.btnSetPWM_Click);
+            // 
+            // tbPWM
+            // 
+            this.tbPWM.Location = new System.Drawing.Point(104, 381);
+            this.tbPWM.Maximum = 100;
+            this.tbPWM.Name = "tbPWM";
+            this.tbPWM.Size = new System.Drawing.Size(892, 45);
+            this.tbPWM.TabIndex = 13;
+            this.tbPWM.ValueChanged += new System.EventHandler(this.tbPWM_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1046, 540);
+            this.Controls.Add(this.tbPWM);
+            this.Controls.Add(this.btnSetPWM);
+            this.Controls.Add(this.lblPropellerPercentage);
             this.Controls.Add(this.gbRPY);
             this.Controls.Add(this.lblTemperature);
             this.Controls.Add(this.gbOmg);
@@ -232,6 +269,7 @@
             this.gbOmg.PerformLayout();
             this.gbRPY.ResumeLayout(false);
             this.gbRPY.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPWM)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,5 +293,9 @@
         private Label lblRoll;
         private Label lblYaw;
         private Label lblPitch;
+        private Label lblPropellerPercentage;
+        private System.Windows.Forms.Timer timerPropellerPercentage;
+        private Button btnSetPWM;
+        private TrackBar tbPWM;
     }
 }

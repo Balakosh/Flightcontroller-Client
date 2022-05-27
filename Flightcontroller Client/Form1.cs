@@ -126,5 +126,35 @@ namespace Flightcontroller_Client
                 }
             }
         }
+
+        private void sendPropellerPercentageMsg(byte percentage)
+        {
+            byte frameCounter = 0;
+            NetworkStream stream = tcpClient.GetStream();
+
+            byte[] msg = new byte[7];
+
+            msg[0] = 0x7e;
+            msg[1] = 2;
+            msg[2] = frameCounter++;
+            msg[3] = 0;
+            msg[4] = (byte)msg.Length;
+            msg[5] = 0;
+            msg[6] = percentage;
+
+            stream.Write(msg, 0, msg.Length);
+        }
+
+        private void btnSetPWM_Click(object sender, EventArgs e)
+        {
+            sendPropellerPercentageMsg((byte)0);
+        }
+
+        private void tbPWM_ValueChanged(object sender, EventArgs e)
+        {
+            lblPropellerPercentage.Text = String.Format("PWM = {0} %", tbPWM.Value);
+
+            sendPropellerPercentageMsg((byte)tbPWM.Value);
+        }
     }
 }
