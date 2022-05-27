@@ -17,7 +17,9 @@ namespace Flightcontroller_Client
         public enum ParserState
         {
             sync,
+            messageID,
             frameCounter,
+            reserved,
             size,
             payload
         }
@@ -26,14 +28,14 @@ namespace Flightcontroller_Client
         private int subStateCounter = 0;
         private byte[] msg = new byte[1024];
         private int bytesLeft = 0;
-        private int payloadCounter = 0;
+        private int byteCounter = 0;
 
         private void Reset()
         {
             state = ParserState.sync;
             subStateCounter = 0;
             bytesLeft = 0;
-            payloadCounter = 0;
+            byteCounter = 0;
         }
 
         public byte[] GetMessage()
@@ -54,26 +56,38 @@ namespace Flightcontroller_Client
                     
                     if (rxByte == 0x7e)
                     {
-                        msg[0] = rxByte;
-                        state = ParserState.frameCounter;
+                        msg[byteCounter++] = rxByte;
+                        state = ParserState.messageID;
                     }
 
                     break;
 
+                case ParserState.messageID:
+                    msg[byteCounter++] = rxByte;
+                    state = ParserState.frameCounter;
+
+                    break;
+
                 case ParserState.frameCounter:
-                    msg[1] = rxByte;
+                    msg[byteCounter++] = rxByte;
+                    state = ParserState.reserved;
+
+                    break;
+
+                case ParserState.reserved:
+                    msg[byteCounter++] = rxByte;
                     state = ParserState.size;
 
                     break;
 
                 case ParserState.size:
-                    msg[2 + subStateCounter++] = rxByte;
+                    msg[byteCounter++] = rxByte;
 
-                    if (subStateCounter == 4)
+                    if (subStateCounter++ == 1)
                     {
                         state = ParserState.payload;
                         subStateCounter = 0;
-                        bytesLeft = BitConverter.ToInt32(msg, 2);
+                        bytesLeft = BitConverter.ToInt16(msg, 4);
                         Array.Resize(ref msg, bytesLeft);
                         bytesLeft -= 6;
                     }
@@ -82,7 +96,7 @@ namespace Flightcontroller_Client
                 case ParserState.payload:
 
                     bytesLeft--;
-                    msg[6 + payloadCounter++] = rxByte;
+                    msg[byteCounter++] = rxByte;
 
                     if (bytesLeft > 0)
                     {

@@ -70,7 +70,7 @@
             // lblFrameCounter
             // 
             this.lblFrameCounter.AutoSize = true;
-            this.lblFrameCounter.Location = new System.Drawing.Point(294, 84);
+            this.lblFrameCounter.Location = new System.Drawing.Point(9, 38);
             this.lblFrameCounter.Name = "lblFrameCounter";
             this.lblFrameCounter.Size = new System.Drawing.Size(103, 15);
             this.lblFrameCounter.TabIndex = 2;
@@ -111,7 +111,7 @@
             this.gbAcc.Controls.Add(this.lblAccX);
             this.gbAcc.Controls.Add(this.lblAccZ);
             this.gbAcc.Controls.Add(this.lblAccY);
-            this.gbAcc.Location = new System.Drawing.Point(287, 111);
+            this.gbAcc.Location = new System.Drawing.Point(5, 65);
             this.gbAcc.Name = "gbAcc";
             this.gbAcc.Size = new System.Drawing.Size(228, 114);
             this.gbAcc.TabIndex = 6;
@@ -123,7 +123,7 @@
             this.gbOmg.Controls.Add(this.lblOmgX);
             this.gbOmg.Controls.Add(this.lblOmgZ);
             this.gbOmg.Controls.Add(this.lblOmgY);
-            this.gbOmg.Location = new System.Drawing.Point(287, 231);
+            this.gbOmg.Location = new System.Drawing.Point(5, 185);
             this.gbOmg.Name = "gbOmg";
             this.gbOmg.Size = new System.Drawing.Size(228, 114);
             this.gbOmg.TabIndex = 7;
@@ -164,7 +164,7 @@
             // 
             this.lblTemperature.AutoSize = true;
             this.lblTemperature.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTemperature.Location = new System.Drawing.Point(530, 149);
+            this.lblTemperature.Location = new System.Drawing.Point(248, 103);
             this.lblTemperature.Name = "lblTemperature";
             this.lblTemperature.Size = new System.Drawing.Size(199, 25);
             this.lblTemperature.TabIndex = 8;
@@ -175,7 +175,7 @@
             this.gbRPY.Controls.Add(this.lblRoll);
             this.gbRPY.Controls.Add(this.lblYaw);
             this.gbRPY.Controls.Add(this.lblPitch);
-            this.gbRPY.Location = new System.Drawing.Point(530, 231);
+            this.gbRPY.Location = new System.Drawing.Point(248, 185);
             this.gbRPY.Name = "gbRPY";
             this.gbRPY.Size = new System.Drawing.Size(228, 114);
             this.gbRPY.TabIndex = 7;
@@ -216,7 +216,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1046, 540);
             this.Controls.Add(this.gbRPY);
             this.Controls.Add(this.lblTemperature);
             this.Controls.Add(this.gbOmg);
