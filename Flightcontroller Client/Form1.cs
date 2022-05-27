@@ -7,25 +7,49 @@ namespace Flightcontroller_Client
         private TcpClient tcpClient;
         private bool conneceted = false;
         private Thread tcpReadThread;
-        private readonly FlightControllerParser parser = new FlightControllerParser();
+        private readonly FlightControllerParser parser = new();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private async void btnConnect_Click(object sender, EventArgs e)
         {
             if (!conneceted)
             {
                 tcpClient = new TcpClient();
-                tcpClient.Connect(txtIP.Text, 1337);
-                conneceted = true;
 
-                tcpReadThread = new Thread(new ThreadStart(tcpReadFxn));
-                tcpReadThread.IsBackground = true;
-                tcpReadThread.Start();
-                btnConnect.Text = "Disconnect";
+                btnConnect.Text = "Connecting";
+                btnConnect.Enabled = false;
+
+                try
+                {
+                    var result = tcpClient.ConnectAsync(txtIP.Text, 1337);
+
+                    await result.WaitAsync(TimeSpan.FromSeconds(1));
+
+                }
+                catch (Exception)
+                {
+
+                }
+
+                btnConnect.Enabled = true;
+
+                if (tcpClient.Connected)
+                {
+                    conneceted = true;
+
+                    tcpReadThread = new Thread(new ThreadStart(tcpReadFxn));
+                    tcpReadThread.IsBackground = true;
+                    tcpReadThread.Start();
+                    btnConnect.Text = "Disconnect";
+                }
+                else
+                {
+                    btnConnect.Text = "Connect";
+                }
             }
             else
             {
